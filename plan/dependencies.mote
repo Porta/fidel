@@ -1,0 +1,3 @@
+% gems.each do |gem|
+  require "{{ gem.sub("-", "/") }}"
+% end

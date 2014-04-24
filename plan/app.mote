@@ -1,0 +1,86 @@
+require File.expand_path("dependencies",  File.dirname(__FILE__))
+require File.expand_path("settings", File.dirname(__FILE__))
+
+Dir["./helpers/**/*.rb"].each       { |rb| require rb }
+Dir["./models/**/*.rb"].each        { |rb| require rb }
+Dir["./routes/**/*.rb"].each        { |rb| require rb }
+Dir["./validations/**/*.rb"].each   { |rb| require rb }
+
+Cuba.use Rack::MethodOverride
+% if gems.include? "rack-protection"
+Cuba.use Rack::Protection
+Cuba.use Rack::Protection::RemoteReferrer  
+% end
+
+Cuba.use Rack::Session::Cookie,
+         key: "{{name}}",
+         secret: Settings::COOKIE_SECRET
+
+Cuba.use Rack::Static,
+         urls: ["/js", "/css", "/img", "/favicon.ico, /favicon.png, /robots.txt"],
+         root: "public"
+
+% if gems.include? "logger"
+logger = Logger.new('log/app.log')
+Cuba.use Rack::CommonLogger, logger
+% end
+
+% if gems.include? "shield"
+Cuba.plugin Shield::Helpers
+% end
+Cuba.plugin Cuba::Render
+% if gems.include? "cuba-sugar"
+Cuba.plugin Cuba::Sugar
+% end
+
+% if gems.include? "rack-uploads"
+Cuba.use Rack::Uploads, :nginx => [{ :tmp_path => "_tmp_path", :filename => "_file_name" }]
+% end
+
+% if gems.include? "ohm"
+Ohm.redis = Redic.new(Settings::REDIS_URL)
+  % if gems.include? "rack-throttle"
+#This should be loaded AFTER /lib requires
+#Cuba.use Throttler, :min => 0.1, :cache => Ohm.redis, :key_prefix => :throttle
+  % end
+% end
+
+% if gems.include? "ost"
+Ost.connect(url: Settings::OST_URL)
+% end
+
+% if gems.include? "malone"
+Malone.connect(url: Settings::MALONE_URL, auth: Settings::MAIL_AUTH,  domain: Settings::MAIL_DOMAIN)
+%end
+
+% if gems.include? "cuba-contrib"
+Cuba.plugin Cuba::Prelude
+% end
+
+Cuba.plugin Helpers
+
+Cuba.define do
+
+  #TODO: Fixme
+  subdomain = -> do
+    parts = req.host.split(".")
+    captures << parts.first if (parts.size > 2 && parts.first != "www")
+  end
+
+  on subdomain do
+    run Collector
+  end
+
+  persist_session!
+
+  on root do
+    on default do
+      res.write view('home')
+    end
+  end
+
+  on default do
+    run Index
+  end
+
+end

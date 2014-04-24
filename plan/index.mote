@@ -1,0 +1,7 @@
+class Index < Cuba
+  define do
+    on default do
+      res.write view("home")
+    end
+  end
+end

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>#{name}</title>
+    <meta name="description" content="#{name}" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <base href="<%= base_url %>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/css/app.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
+    <% if ENV['RACK_ENV'] == "production" %>
+    <% end %>
+  </head>
+
+  <body>
+    <div>
+      <header>
+        <div id="flash" class="flash_<%= flash_kind %>"><%= flash %></div>
+      </header>
+      <div class="marginator" id="anchor">
+        <%= content %>
+      </div>
+      <div id="last_line"></div>
+    </div>
+    
+    <footer>
+    </footer>
+    <% if ENV['RACK_ENV'] == "production" %>
+      <!-- link to packed js here -->
+      <script type="text/javascript" src="/js/application.min.js"></script>
+    <% else  %>
+      <!-- link to non packed js here, like jquery, etc -->
+      <script type="text/javascript" src="/js/application.js"></script>
+    <% end %>
+  <script type="text/javascript">
+    <% yield_for :document_ready %>
+  </script>
+  </body>
+</html>
