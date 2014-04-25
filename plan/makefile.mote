@@ -2,15 +2,15 @@ setup:
 		mkdir log
 
 gems:
-  which gs  || gem install gs
-  which dep || gem install dep
+    which gs  || gem install gs
+    which dep || gem install dep
 % gems.each do |gem|
-  dep add {{gem}}
+    dep add {{gem}}
 % end
-  gs init
+    gs init
 
 install:
-  dep install
+    dep install
 
 pack:
 		cd public/js/ && curl -X POST -s --data-urlencode 'input@application.js' http://javascript-minifier.com/raw > application.min.js
