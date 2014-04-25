@@ -82,4 +82,10 @@ module Plan
     end
   end
 
+  class Config < Fidel
+    def destination
+      "config.ru"
+    end
+  end
+
 end
