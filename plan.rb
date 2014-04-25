@@ -36,76 +36,74 @@ module Plan
     end
 
     def destination
-      "app.rb"
+      "#{name}/app.rb"
     end
   end
 
   class Dependencies < Fidel
     def destination
-      "dependencies.rb"
+      "#{name}/dependencies.rb"
     end
   end
 
   class Settings < Fidel
     def destination
-      "settings.rb"
+      "#{name}/settings.rb"
     end
   end
 
   class Env < Fidel
     def destination
-      "env.sh"
+      "#{name}/env.sh"
     end
   end
 
   class Helpers < Fidel
     def destination
-      "helpers/helpers.rb"
+      "#{name}/helpers/helpers.rb"
     end
   end
 
   class Index < Fidel
     def destination
-      "routes/index.rb"
+      "#{name}/routes/index.rb"
     end
   end
 
   class Home < Fidel
     def destination
-      "views/home.erb"
+      "#{name}/views/home.erb"
     end
   end
 
   class Layout < Fidel
     def destination
-      "views/layout.erb"
+      "#{name}/views/layout.erb"
     end
   end
 
   class Config < Fidel
     def destination
-      "config.ru"
+      "#{name}/config.ru"
     end
   end
 
   class Makefile < Fidel
     def destination
-      "makefile"
+      "#{name}/makefile"
     end
   end
 
   class Styles < Fidel
     def destination
-      "public/css/styles.css"
+      "#{name}/public/css/styles.css"
     end
   end
 
   class Application < Fidel
     def destination
-      "public/js/application.js"
+      "#{name}/public/js/application.js"
     end
   end
-
-  
 
 end
