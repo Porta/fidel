@@ -16,7 +16,6 @@ module Plan
       [
         "cuba",
         "cuba-contrib",
-        "cuba-render",
         "cuba-sugar",
         "cuba-test",
         "malone",
