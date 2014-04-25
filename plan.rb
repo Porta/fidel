@@ -88,6 +88,12 @@ module Plan
     end
   end
 
+  class Makefile < Fidel
+    def destination
+      "makefile"
+    end
+  end
+
   class Styles < Fidel
     def destination
       "public/css/styles.css"
