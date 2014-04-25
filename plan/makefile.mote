@@ -1,6 +1,14 @@
 setup:
 		mkdir log
 
+gems:
+  which gs  || gem install gs
+  which dep || gem install dep
+% gems.each do |gem|
+  dep add {{gem}}
+% end
+  gs init
+
 pack:
 		cd public/js/ && curl -X POST -s --data-urlencode 'input@application.js' http://javascript-minifier.com/raw > application.min.js
 		cd public/css/ && curl -X POST -s --data-urlencode 'input@styles.css' http://cssminifier.com/raw > styles.min.css
