@@ -107,3 +107,33 @@ module Plan
   end
 
 end
+
+instructions = <<-EOS
+  You have just created a Cuba application. Now, go ahead and install
+  the dependencies with the following commands:
+
+    $ cd #{Plan::App.new.name}
+    $ make setup   # Creates required dirs
+    $ make gems    # Creates a gemset and lists dependencies.
+    $ make install # Installs dependencies
+
+  Once you are done with the setup, run the webserver:
+
+    $ rackup
+
+  Now you can head to http://localhost:9292.
+
+  In development mode, it is good to have your application code
+  reloaded between requests. For that, we recommend the use of the
+  shotgun gem:
+
+    $ gem install shotgun
+    $ shotgun
+
+  Both shotgun and rackup use webrick by default:
+
+  Now head to http://localhost:9292 to check your creation. Enjoy!
+EOS
+
+puts instructions
+puts
