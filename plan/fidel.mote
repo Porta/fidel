@@ -7,14 +7,17 @@ Dir["./routes/**/*.rb"].each        { |rb| require rb }
 Dir["./validations/**/*.rb"].each   { |rb| require rb }
 
 Cuba.use Rack::MethodOverride
-% if gems.include? "rack-protection"
-Cuba.use Rack::Protection
-Cuba.use Rack::Protection::RemoteReferrer  
-% end
+
+
 
 Cuba.use Rack::Session::Cookie,
          key: "{{name}}",
          secret: Settings::COOKIE_SECRET
+
+% if gems.include? "rack-protection"
+Cuba.use Rack::Protection
+Cuba.use Rack::Protection::RemoteReferrer  
+% end
 
 Cuba.use Rack::Static,
          urls: ["/js", "/css", "/img", "/favicon.ico, /favicon.png, /robots.txt"],
@@ -22,6 +25,7 @@ Cuba.use Rack::Static,
 
 % if gems.include? "logger"
 logger = Logger.new('log/app.log')
+Logger.class_eval { alias :write :'<<' }
 Cuba.use Rack::CommonLogger, logger
 % end
 
@@ -60,18 +64,6 @@ Cuba.plugin Cuba::Prelude
 Cuba.plugin Helpers
 
 Cuba.define do
-
-  #TODO: Fixme
-  subdomain = -> do
-    parts = req.host.split(".")
-    captures << parts.first if (parts.size > 2 && parts.first != "www")
-  end
-
-  on subdomain do
-    run Collector
-  end
-
-  persist_session!
 
   on root do
     on default do
