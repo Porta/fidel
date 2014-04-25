@@ -112,7 +112,7 @@ instructions = <<-EOS
   You have just created a Cuba application. Now, go ahead and install
   the dependencies with the following commands:
 
-    $ cd #{Plan::App.new.name}
+    $ cd #{Plan::Fidel.new.name}
     $ make setup   # Creates required dirs
     $ make gems    # Creates a gemset and lists dependencies.
     $ make install # Installs dependencies
