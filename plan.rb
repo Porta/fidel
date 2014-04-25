@@ -88,4 +88,16 @@ module Plan
     end
   end
 
+  class Styles < Fidel
+    def destination
+      "public/css/styles.css"
+    end
+  end
+
+  class Application < Fidel
+    def destination
+      "public/js/application.js"
+    end
+  end
+
 end
