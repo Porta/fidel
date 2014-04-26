@@ -1,3 +1,6 @@
 % gems.each do |gem|
 require "{{ gem.sub("-", "/") }}"
 % end
+
+require "cuba-render"
+require "cuba-test"

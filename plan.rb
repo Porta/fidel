@@ -17,7 +17,6 @@ module Plan
         "cuba",
         "cuba-contrib",
         "cuba-sugar",
-        "cuba-test",
         "malone",
         "ohm",
         "ohm-contrib",
