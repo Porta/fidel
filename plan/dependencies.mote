@@ -2,5 +2,5 @@
 require "{{ gem.sub("-", "/") }}"
 % end
 
-require "cuba-render"
-require "cuba-test"
+require "cuba/render"
+require "cuba/test"
