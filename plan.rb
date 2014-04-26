@@ -130,7 +130,7 @@ instructions = <<-EOS
 
   Both shotgun and rackup use webrick by default:
 
-  Now head to http://localhost:9292 to check your creation. Enjoy!
+  Now head to http://localhost:9393 to check your creation. Enjoy!
 EOS
 
 puts instructions
