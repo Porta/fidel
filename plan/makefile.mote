@@ -15,3 +15,6 @@ install:
 pack:
 		cd public/js/ && curl -X POST -s --data-urlencode 'input@application.js' http://javascript-minifier.com/raw > application.min.js
 		cd public/css/ && curl -X POST -s --data-urlencode 'input@styles.css' http://cssminifier.com/raw > styles.min.css
+
+test:
+    env $$(cat env.sh) bundle exec cutest -r ./app.rb ./tests/helper.rb tests/*_test.rb tests/*/*_test.rb    
